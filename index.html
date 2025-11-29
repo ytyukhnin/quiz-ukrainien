@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Ukrainien 🇺🇦</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .quiz-container {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #e8e8e8;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #58cc02 0%, #78e008 100%);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .question-counter {
+            font-size: 14px;
+            color: #777;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 4px solid #e8e8e8;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: #3c3c3c;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .answer-btn {
+            background: #ffffff;
+            border: 3px solid #e8e8e8;
+            border-radius: 16px;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #4b4b4b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .answer-btn:hover {
+            border-color: #ce82ff;
+            background: #f7f0ff;
+        }
+
+        .answer-btn.selected {
+            border-color: #ce82ff;
+            background: #f7f0ff;
+            box-shadow: 0 0 0 4px rgba(206, 130, 255, 0.2);
+        }
+
+        .answer-btn.correct {
+            border-color: #58cc02;
+            background: #d7ffb8;
+            box-shadow: 0 0 0 4px rgba(88, 204, 2, 0.2);
+        }
+
+        .answer-btn.incorrect {
+            border-color: #ff4b4b;
+            background: #ffdfe0;
+            box-shadow: 0 0 0 4px rgba(255, 75, 75, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(180deg, #1cb0f6 0%, #1899d6 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            font-family: 'Nunito', sans-serif;
+            box-shadow: 0 4px 0 #1787c4;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #1787c4;
+        }
+
+        .submit-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #1787c4;
+        }
+
+        .submit-btn:disabled {
+            background: #e5e5e5;
+            box-shadow: 0 4px 0 #cacaca;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn.next-btn {
+            background: linear-gradient(180deg, #58cc02 0%, #4caf00 100%);
+            box-shadow: 0 4px 0 #3d8c00;
+        }
+
+        .submit-btn.next-btn:hover {
+            box-shadow: 0 6px 0 #3d8c00;
+        }
+
+        .submit-btn.next-btn:active {
+            box-shadow: 0 2px 0 #3d8c00;
+        }
+
+        /* Results screen */
+        .results-screen {
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .results-emoji {
+            font-size: 80px;
+            margin-bottom: 16px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .results-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #3c3c3c;
+            margin-bottom: 8px;
+        }
+
+        .results-score {
+            font-size: 18px;
+            color: #777;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background: linear-gradient(180deg, #ffc800 0%, #ffb100 100%);
+            color: #3c3c3c;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Nunito', sans-serif;
+            box-shadow: 0 4px 0 #d4a000;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #d4a000;
+        }
+
+        .contact-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #d4a000;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Feedback message */
+        .feedback {
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .feedback.correct {
+            background: #d7ffb8;
+            color: #58cc02;
+        }
+
+        .feedback.incorrect {
+            background: #ffdfe0;
+            color: #ff4b4b;
+        }
+
+        /* Ukrainian flag colors decoration */
+        .flag-decoration {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .flag-blue {
+            flex: 1;
+            background: #005bbb;
+        }
+
+        .flag-yellow {
+            flex: 1;
+            background: #ffd500;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Quiz Screen -->
+        <div id="quiz-screen">
+            <div class="flag-decoration">
+                <div class="flag-blue"></div>
+                <div class="flag-yellow"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="question-counter" id="question-counter">Question 1 sur 3</div>
+            <img class="question-image" id="question-image" src="" alt="Question image">
+            <div class="question-text" id="question-text"></div>
+            <div class="answers" id="answers"></div>
+            <div class="feedback hidden" id="feedback"></div>
+            <button class="submit-btn" id="submit-btn" disabled>Vérifier</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="results-screen hidden">
+            <div class="flag-decoration">
+                <div class="flag-blue"></div>
+                <div class="flag-yellow"></div>
+            </div>
+            <div class="results-emoji">🎉</div>
+            <div class="results-title">Félicitations !</div>
+            <div class="results-score" id="results-score"></div>
+            <a href="https://example.com/contact" class="contact-btn" id="contact-btn">Reston en contact</a>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data - 3 questions about Ukraine
+        // Using data URIs for embedded images (SVG)
+        const flagImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect fill='%23005BBB' width='1200' height='400'/%3E%3Crect fill='%23FFD500' y='400' width='1200' height='400'/%3E%3C/svg%3E";
+        
+        const cityImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2387CEEB'/%3E%3Cstop offset='100%25' style='stop-color:%23E0F6FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23sky)' width='400' height='300'/%3E%3Crect fill='%23228B22' y='220' width='400' height='80'/%3E%3Crect fill='%23FFD700' x='180' y='80' width='40' height='140' rx='5'/%3E%3Ccircle fill='%23FFD700' cx='200' cy='70' r='20'/%3E%3Crect fill='%23DC143C' x='60' y='140' width='60' height='80'/%3E%3Crect fill='%23DC143C' x='280' y='120' width='60' height='100'/%3E%3Crect fill='%234169E1' x='140' y='160' width='50' height='60'/%3E%3Crect fill='%234169E1' x='210' y='150' width='50' height='70'/%3E%3Ctext x='200' y='260' text-anchor='middle' fill='%23333' font-family='Arial' font-size='24' font-weight='bold'%3EKyiv%3C/text%3E%3C/svg%3E";
+        
+        const sunflowerImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='bgsky' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2387CEEB'/%3E%3Cstop offset='100%25' style='stop-color:%23E0F6FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23bgsky)' width='400' height='300'/%3E%3Crect fill='%23228B22' y='240' width='400' height='60'/%3E%3Cline x1='200' y1='300' x2='200' y2='140' stroke='%23228B22' stroke-width='12'/%3E%3Cellipse cx='140' cy='200' rx='30' ry='15' fill='%23228B22' transform='rotate(-30 140 200)'/%3E%3Cellipse cx='260' cy='190' rx='30' ry='15' fill='%23228B22' transform='rotate(30 260 190)'/%3E%3Cg transform='translate(200,100)'%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(30)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(90)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(150)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(210)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(270)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(300)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(330)'/%3E%3Ccircle cx='0' cy='0' r='30' fill='%238B4513'/%3E%3C/g%3E%3C/svg%3E";
+
+        const quizData = [
+            {
+                image: flagImage,
+                question: "Quelles sont les couleurs du drapeau ukrainien ?",
+                answers: [
+                    { text: "Bleu et jaune", correct: true },
+                    { text: "Rouge et blanc", correct: false },
+                    { text: "Vert et orange", correct: false }
+                ]
+            },
+            {
+                image: cityImage,
+                question: "Quelle est la capitale de l'Ukraine ?",
+                answers: [
+                    { text: "Odessa", correct: false },
+                    { text: "Kyiv", correct: true },
+                    { text: "Lviv", correct: false }
+                ]
+            },
+            {
+                image: sunflowerImage,
+                question: "Quelle est la fleur nationale de l'Ukraine ?",
+                answers: [
+                    { text: "La rose", correct: false },
+                    { text: "La tulipe", correct: false },
+                    { text: "Le tournesol", correct: true }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let answered = false;
+
+        // DOM elements
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const progressFill = document.getElementById('progress-fill');
+        const questionCounter = document.getElementById('question-counter');
+        const questionImage = document.getElementById('question-image');
+        const questionText = document.getElementById('question-text');
+        const answersContainer = document.getElementById('answers');
+        const feedbackDiv = document.getElementById('feedback');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsScore = document.getElementById('results-score');
+
+        function loadQuestion() {
+            const question = quizData[currentQuestion];
+            
+            // Reset state
+            selectedAnswer = null;
+            answered = false;
+            feedbackDiv.classList.add('hidden');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Vérifier';
+            submitBtn.classList.remove('next-btn');
+
+            // Update progress
+            const progress = (currentQuestion / quizData.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            questionCounter.textContent = `Question ${currentQuestion + 1} sur ${quizData.length}`;
+
+            // Load question content
+            questionImage.src = question.image;
+            questionText.textContent = question.question;
+
+            // Create answer buttons
+            answersContainer.innerHTML = '';
+            question.answers.forEach((answer, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = answer.text;
+                btn.addEventListener('click', () => selectAnswer(index, btn));
+                answersContainer.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(index, btn) {
+            if (answered) return;
+
+            // Remove previous selection
+            document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+            
+            // Set new selection
+            btn.classList.add('selected');
+            selectedAnswer = index;
+            submitBtn.disabled = false;
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === null) return;
+
+            answered = true;
+            const question = quizData[currentQuestion];
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            // Show correct/incorrect
+            buttons.forEach((btn, index) => {
+                btn.style.pointerEvents = 'none';
+                if (question.answers[index].correct) {
+                    btn.classList.add('correct');
+                } else if (index === selectedAnswer && !question.answers[index].correct) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            // Show feedback
+            const isCorrect = question.answers[selectedAnswer].correct;
+            if (isCorrect) {
+                score++;
+                feedbackDiv.textContent = '🎉 Bravo ! Bonne réponse !';
+                feedbackDiv.className = 'feedback correct';
+            } else {
+                feedbackDiv.textContent = '😢 Oups ! Ce n\'est pas la bonne réponse.';
+                feedbackDiv.className = 'feedback incorrect';
+            }
+            feedbackDiv.classList.remove('hidden');
+
+            // Update button for next question
+            if (currentQuestion < quizData.length - 1) {
+                submitBtn.textContent = 'Continuer';
+                submitBtn.classList.add('next-btn');
+            } else {
+                submitBtn.textContent = 'Voir les résultats';
+                submitBtn.classList.add('next-btn');
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            resultsScore.textContent = `Vous avez obtenu ${score} sur ${quizData.length} bonnes réponses !`;
+            
+            // Update progress to 100%
+            progressFill.style.width = '100%';
+        }
+
+        // Submit button handler
+        submitBtn.addEventListener('click', () => {
+            if (!answered) {
+                checkAnswer();
+            } else {
+                nextQuestion();
+            }
+        });
+
+        // Initialize quiz
+        loadQuestion();
+    </script>
+</body>
+</html>

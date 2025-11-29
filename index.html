@@ -308,45 +308,42 @@
             <div class="results-emoji">🎉</div>
             <div class="results-title">Félicitations !</div>
             <div class="results-score" id="results-score"></div>
-            <a href="https://example.com/contact" class="contact-btn" id="contact-btn">Restons en contact</a>
+            <a href="http://eepurl.com/iflbqr" class="contact-btn" id="contact-btn">Restons en contact</a>
         </div>
     </div>
 
     <script>
-        // Quiz data - 3 questions about Ukraine
-        // Using data URIs for embedded images (SVG)
-        const flagImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect fill='%23005BBB' width='1200' height='400'/%3E%3Crect fill='%23FFD500' y='400' width='1200' height='400'/%3E%3C/svg%3E";
-        
-        const cityImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2387CEEB'/%3E%3Cstop offset='100%25' style='stop-color:%23E0F6FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23sky)' width='400' height='300'/%3E%3Crect fill='%23228B22' y='220' width='400' height='80'/%3E%3Crect fill='%23FFD700' x='180' y='80' width='40' height='140' rx='5'/%3E%3Ccircle fill='%23FFD700' cx='200' cy='70' r='20'/%3E%3Crect fill='%23DC143C' x='60' y='140' width='60' height='80'/%3E%3Crect fill='%23DC143C' x='280' y='120' width='60' height='100'/%3E%3Crect fill='%234169E1' x='140' y='160' width='50' height='60'/%3E%3Crect fill='%234169E1' x='210' y='150' width='50' height='70'/%3E%3Ctext x='200' y='260' text-anchor='middle' fill='%23333' font-family='Arial' font-size='24' font-weight='bold'%3EKyiv%3C/text%3E%3C/svg%3E";
-        
-        const sunflowerImage = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Cdefs%3E%3ClinearGradient id='bgsky' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2387CEEB'/%3E%3Cstop offset='100%25' style='stop-color:%23E0F6FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23bgsky)' width='400' height='300'/%3E%3Crect fill='%23228B22' y='240' width='400' height='60'/%3E%3Cline x1='200' y1='300' x2='200' y2='140' stroke='%23228B22' stroke-width='12'/%3E%3Cellipse cx='140' cy='200' rx='30' ry='15' fill='%23228B22' transform='rotate(-30 140 200)'/%3E%3Cellipse cx='260' cy='190' rx='30' ry='15' fill='%23228B22' transform='rotate(30 260 190)'/%3E%3Cg transform='translate(200,100)'%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(30)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(90)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(150)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(210)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(270)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(300)'/%3E%3Cellipse cx='0' cy='-50' rx='12' ry='30' fill='%23FFD700' transform='rotate(330)'/%3E%3Ccircle cx='0' cy='0' r='30' fill='%238B4513'/%3E%3C/g%3E%3C/svg%3E";
+        // Quiz images
+        const qu1Image = "images/QU1.png";
+        const qu2Image = "images/QU2.png";
+        const qu3Image = "images/QU3.png";
 
         const quizData = [
             {
-                image: flagImage,
-                question: "Quelles sont les couleurs du drapeau ukrainien ?",
+                image: qu1Image,
+                question: "Comment s’appelle le plat traditionnel ukrainien à base de blé et de miel servi la veille de Noël ?",
                 answers: [
-                    { text: "Bleu et jaune", correct: true },
-                    { text: "Rouge et blanc", correct: false },
-                    { text: "Vert et orange", correct: false }
+                    { text: "Kutia", correct: true },
+                    { text: "Bortsch", correct: false },
+                    { text: "Varenyky", correct: false }
                 ]
             },
             {
-                image: cityImage,
-                question: "Quelle est la capitale de l'Ukraine ?",
+                image: qu2Image,
+                question: "Quelle décoration traditionnelle ukrainienne en paille suspend-on dans la maison à Noël ?",
                 answers: [
-                    { text: "Odessa", correct: false },
-                    { text: "Kyiv", correct: true },
-                    { text: "Lviv", correct: false }
+                    { text: "Une guirlande en papier", correct: false },
+                    { text: "Une cloche", correct: false },
+                    { text: "Le « pavouk »", correct: true }
                 ]
             },
             {
-                image: sunflowerImage,
-                question: "Quelle est la fleur nationale de l'Ukraine ?",
+                image: qu3Image,
+                question: "Quelle chanson de Noël ukrainienne est devenue célèbre dans le monde entier sous le nom de “Carol of the Bells” ?",
                 answers: [
-                    { text: "La rose", correct: false },
-                    { text: "La tulipe", correct: false },
-                    { text: "Le tournesol", correct: true }
+                    { text: "« Dobryï večir tobi »", correct: false },
+                    { text: "« Shchedryk »", correct: true },
+                    { text: "« Nova radist’ stala »", correct: false }
                 ]
             }
         ];
@@ -462,7 +459,7 @@
         function showResults() {
             quizScreen.classList.add('hidden');
             resultsScreen.classList.remove('hidden');
-            resultsScore.textContent = `Vous avez obtenu ${score} sur ${quizData.length} bonnes réponses !`;
+            resultsScore.textContent = `Vous avez obtenu ${score} sur ${quizData.length} !`;
             
             // Update progress to 100%
             progressFill.style.width = '100%';

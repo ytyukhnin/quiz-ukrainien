@@ -208,32 +208,75 @@
             margin-bottom: 24px;
         }
 
-        .contact-btn {
-            display: inline-block;
-            background: linear-gradient(180deg, #ffc800 0%, #ffb100 100%);
-            color: #3c3c3c;
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
             border: none;
-            border-radius: 16px;
-            padding: 16px 32px;
-            font-size: 16px;
-            font-weight: 800;
+            border-radius: 50%;
+            font-size: 24px;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             text-decoration: none;
             transition: all 0.2s ease;
-            font-family: 'Nunito', sans-serif;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .social-btn:active {
+            transform: translateY(2px);
+        }
+
+        .social-btn.email {
+            background: linear-gradient(180deg, #ffc800 0%, #ffb100 100%);
+            color: #3c3c3c;
             box-shadow: 0 4px 0 #d4a000;
         }
 
-        .contact-btn:hover {
-            transform: translateY(-2px);
+        .social-btn.email:hover {
             box-shadow: 0 6px 0 #d4a000;
         }
 
-        .contact-btn:active {
-            transform: translateY(2px);
+        .social-btn.email:active {
             box-shadow: 0 2px 0 #d4a000;
+        }
+
+        .social-btn.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            box-shadow: 0 4px 0 #a01070;
+        }
+
+        .social-btn.instagram:hover {
+            box-shadow: 0 6px 0 #a01070;
+        }
+
+        .social-btn.instagram:active {
+            box-shadow: 0 2px 0 #a01070;
+        }
+
+        .social-btn.facebook {
+            background: linear-gradient(180deg, #1877f2 0%, #166fe5 100%);
+            color: white;
+            box-shadow: 0 4px 0 #0d5ec7;
+        }
+
+        .social-btn.facebook:hover {
+            box-shadow: 0 6px 0 #0d5ec7;
+        }
+
+        .social-btn.facebook:active {
+            box-shadow: 0 2px 0 #0d5ec7;
         }
 
         .hidden {
@@ -308,7 +351,17 @@
             <div class="results-emoji">🎉</div>
             <div class="results-title">Félicitations !</div>
             <div class="results-score" id="results-score"></div>
-            <a href="http://eepurl.com/iflbqr" class="contact-btn" id="contact-btn">Restons en contact</a>
+            <div class="social-buttons">
+                <a href="http://eepurl.com/iflbqr" class="social-btn email" id="contact-btn" title="Email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://www.instagram.com/lamaisonukrainiennesgl/" class="social-btn instagram" target="_blank" rel="noopener noreferrer" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="https://facebook.com/LaMaisonUkrainienneSGL" class="social-btn facebook" target="_blank" rel="noopener noreferrer" title="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+            </div>
         </div>
     </div>
 

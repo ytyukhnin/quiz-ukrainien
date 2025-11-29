@@ -9,7 +9,7 @@ Quiz 100% gagnant - Une application web interactive pour tester vos connaissance
 - Interface mobile-first avec design Duolingo
 - Feedback immédiat après chaque réponse
 - Écran de résultats avec score final
-- Bouton "Reston en contact" à la fin
+- Bouton "Restons en contact" à la fin
 
 ## Comment utiliser
 
@@ -17,7 +17,7 @@ Quiz 100% gagnant - Une application web interactive pour tester vos connaissance
 2. Répondez aux 3 questions sur l'Ukraine
 3. Cliquez sur "Vérifier" pour soumettre votre réponse
 4. Cliquez sur "Continuer" pour passer à la question suivante
-5. À la fin, cliquez sur "Reston en contact" pour être redirigé
+5. À la fin, cliquez sur "Restons en contact" pour être redirigé
 
 ## Technologies
 
